@@ -58,21 +58,9 @@ def calc_code(node, val=''):  # рекурсивная функция поиск
     return codes
 
 
-def Total_Gain(data, coding):
-    before_compression = len(data) * 8  # total bit space to stor the data before compression
-    after_compression = 0
-    symbols = coding.keys()
-    for symbol in symbols:
-        count = data.count(symbol)
-        after_compression += count * len(coding[symbol])  # calculate how many bit is required for that symbol in total
-    # print("Space usage before compression (in bits) :", before_compression)
-    # print("Space usage after compression (in bits) :", after_compression)
-
-
 def Output_Encoded(data, coding):
     encoding_output = []
     for c in data:
-        #  print(coding[c], end = '')
         encoding_output.append(coding[c])
 
     string = ''.join([str(item) for item in encoding_output])
@@ -88,24 +76,19 @@ def huffman_encoder(data):  # кодирование алгоритмом Хаф
 
     nodes = []
 
-    # converting symbols and probabilities into huffman tree nodes
+    # По символам и частотам создаю дерево
     for symbol in symbols:
         nodes.append(Node(symbol_with_probs.get(symbol), symbol))
 
     while len(nodes) > 1:
-        # sort all the nodes in ascending order based on their probability
         nodes = sorted(nodes, key=lambda x: x.count)
-        # for node in nodes:
-        #      print(node.symbol, node.prob)
 
-        # pick 2 smallest nodes
         right = nodes[0]
         left = nodes[1]
 
         left.code = 0
         right.code = 1
 
-        # combine the 2 smallest nodes to create new node
         newNode = Node(left.count + right.count, left.symbol + right.symbol, left, right)
 
         nodes.remove(left)
@@ -114,7 +97,6 @@ def huffman_encoder(data):  # кодирование алгоритмом Хаф
 
     huffman_encoding = calc_code(nodes[0])
     # print("symbols with codes :", huffman_encoding)
-    Total_Gain(data, huffman_encoding)
     encoded_output = Output_Encoded(data, huffman_encoding)
     return encoded_output, nodes[0]
 

@@ -58,6 +58,6 @@ def bwt_decoder_smart(array, number):  # обратное преобразова
     answer_array = []
     for i in range(len(last_row)):  # составляем исходную строку
         answer_array.append(last_row[current])
-        current = airs[current][1]
+        current = pairs[current][1]
     # return answer
     return answer_array
