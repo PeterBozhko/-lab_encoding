@@ -17,7 +17,7 @@ def new_bwt(data):
     shifts.sort(key=ft.cmp_to_key(lambda x, y: cmp_str(x, y, data)))
     # answer = ""
     answer_array = []
-    print(shifts)
+    # print(shifts)
     for i in shifts:
         # answer += data[i - 1]
         answer_array.append(data[i - 1])
@@ -58,21 +58,6 @@ def bwt_decoder_smart(array, number):  # обратное преобразова
     answer_array = []
     for i in range(len(last_row)):  # составляем исходную строку
         answer_array.append(last_row[current])
-        current = pairs[current][1]
+        current = airs[current][1]
     # return answer
     return answer_array
-
-def bwt_decoder_smart_smart(array, number):  # обратное преобразование Барроуза — Уилера (BWT)
-    indices = [i for i in range(len(array))]
-    indices.sort(key=ft.cmp_to_key(lambda x, y: cmp_str(x, y, array)))
-    answer_array = []
-    current = indices[number]
-    print("indices", indices)
-    # while (current != number):
-    print(array)
-    for i in range(len(array)):  # составляем исходную строку
-        print("current", current)
-        answer_array.append(array[current])
-        current = indices[current]
-    return answer_array
-#[97, 98, 114, 97, 100, 97, 98, 114, 97, 98, 114]

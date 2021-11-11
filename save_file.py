@@ -1,10 +1,10 @@
 def save(name, bwt_num, tree, data):
-    f = open(name+".bin", "wb")
-    name_in_bytes = []
-    for i in name:
-        name_in_bytes.append(ord(i))
-    out_0_1 = len(name_in_bytes).to_bytes(1, "big") # количество байт в имени
-    out_0_2 = [i.to_bytes(1, "big") for i in name_in_bytes]  # имя в байтах
+
+    # name_in_bytes = []
+    # for i in name:
+    #     name_in_bytes.append(ord(i))
+    # out_0_1 = len(name_in_bytes).to_bytes(1, "big") # количество байт в имени
+    # out_0_2 = [i.to_bytes(1, "big") for i in name_in_bytes]  # имя в байтах
 
     count = (len(bin(bwt_num)) - 2) // 8
     if (len(bin(bwt_num)) - 2) % 8 != 0:
@@ -50,9 +50,10 @@ def save(name, bwt_num, tree, data):
     out_2_5 = count.to_bytes(1, "big")
     out_4 = int(data, 2).to_bytes(len(data) // 8, "big")
     # print("out_4 =", data)
-    f.write(out_0_1)
-    for i in out_0_2:
-        f.write(i)
+    # f.write(out_0_1)
+    # for i in out_0_2:
+    #     f.write(i)
+    f = open(name, "wb")
     f.write(out_0_3)
     f.write(out_0_4)
     f.write(out_1)

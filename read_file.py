@@ -13,21 +13,21 @@ def read(name):
         ans += x
     # print("and---------------------", ans)
     # print("and---------------------", len(ans))
-    out_0_1 = int(ans[:8], 2)
-    ans = ans[8:]
-    out_0_2 = ""
-    for i in range(out_0_1):
-        ch = chr(int(ans[:8], 2))
-        out_0_2 += ch
-        ans = ans[8:]
-    print("out_0_3", ans[:8])
+    # out_0_1 = int(ans[:8], 2)
+    # ans = ans[8:]
+    # out_0_2 = ""
+    # for i in range(out_0_1):
+    #     ch = chr(int(ans[:8], 2))
+    #     out_0_2 += ch
+    #     ans = ans[8:]
+    # print("out_0_3", ans[:8])
     out_0_3 = int(ans[:8], 2)
     ans = ans[8:]
     out_0_4 = ans[:out_0_3*8]
-    print("out_0_4_1", out_0_3,out_0_4)
+    # print("out_0_4_1", out_0_3,out_0_4)
     out_0_4 = int(out_0_4, 2)
     ans = ans[out_0_3*8:]
-    print("out_0_4_2", out_0_4)
+    # print("out_0_4_2", out_0_4)
 
     out_1 = int(ans[:16], 2)
     out_2 = int(ans[16:24], 2)
@@ -62,4 +62,4 @@ def read(name):
     #     out_3 = out_3[out_2:]
 
     f.close()
-    return out_0_2, out_0_4, ans, d
+    return out_0_4, ans, d
