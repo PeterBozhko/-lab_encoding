@@ -1,11 +1,22 @@
-import bwt
-init_string = [97, 98, 114, 99, 97, 100]
-# init_string = 'abrac'
-# for i in range(len(init_string)):
-#     init_string[i] = chr(init_string[i])
-encode, num = bwt.bwt_encoder(init_string)
-print(encode, num)
-answer = bwt.bwt_decoder_smart(encode, num)
-print("init", init_string)
-print("answ",answer)
-print(answer == init_string)
+x = 256
+y = x
+count = 0
+while x > 0:
+    count += 1
+    x //= 256
+print(count)
+z = y.to_bytes(count, "big")
+ans = ""
+for i in z:
+    t = bin(i).replace("0b", "")
+    t = '0' * (8 - len(t)) + t
+    ans += t
+print(ans)
+print(int(ans, 2))
+print(y == int(ans, 2))
+print(bin(y))
+print((len(bin(y)) - 2))
+count = (len(bin(y)) - 2) // 8
+if (len(bin(y)) - 2) % 8 != 0:
+    count += 1
+print(count)

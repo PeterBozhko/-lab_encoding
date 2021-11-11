@@ -1,9 +1,9 @@
-fin = open("calgarycorpus/book1", "rb")
+fin = open("bib.txt", "rb")
 input_bytes = list(map(int, fin.read()))
 # initial_string = ""
 # for i in input_file:
 #     initial_string += i
-print("input string :", type(input_bytes), input_bytes)
+# print("input string :", type(input_bytes), input_bytes)
 fin.close()
 import bwt
 import huffman
@@ -12,10 +12,10 @@ import read_file
 import save_file
 
 
-def save_orig(int_array):
-    f = open("output.txt", "wb")
+def save_orig(name, int_array):
+    f = open("r_"+name, "wb")
     # f.write(int_array[0].to_bytes(1, "big"))
-    print("int_array", int_array)
+    # print("int_array", int_array)
     [f.write(i.to_bytes(1, "big")) for i in int_array]
     # [f.write(int_array[i].to_bytes(1, "little")) for i in range(len(int_array))]
     # for i in int_array:
@@ -26,11 +26,16 @@ def save_orig(int_array):
 
 
 # ----------------------------------CODER----------------------------------
+name = "bib.txt"
+# name_in_bytes = []
+# for i in name:
+#     name_in_bytes.append(ord(i))
 data = input_bytes
+
 data, num = bwt.new_bwt(data)
-print("bwt_encode_result :", num, data)
+print("bwt_encode_result :", num)#, data)
 bwt_encode_result = data
-data, init_alp = mtf.mtf_encode(data)
+data = mtf.mtf_encode(data)
 mtf_encode_result = ""
 for i in data:
     mtf_encode_result += str(i)
@@ -38,9 +43,9 @@ for i in data:
 huffman_code, tree = huffman.huffman_encoder(data)
 # print("huffman_code", huffman_code)
 # ----------------------------------SAVING----------------------------------
-save_file.save("name.bin", huffman.calc_code(tree), huffman_code)
+save_file.save(name, num, huffman.calc_code(tree), huffman_code)
 # ----------------------------------READING---------------------------------
-enc, tree_dict = read_file.read()
+name_for_restore, num, enc, tree_dict = read_file.read(name+".bin")
 tree = huffman.calc_tree(tree_dict)
 # print("-----------------------------------------DECODER---------------------------------------------------------------")
 # print("before_huffman_code_decoder :", enc)
@@ -49,7 +54,7 @@ huffman_encoding = huffman.calc_code(tree[0])
 # print("symbols with codes :", huffman_encoding)
 before_mtf_decoder = huffman.Huffman_Decoding(enc, tree[0])
 # print("before_mtf_decoder :", before_mtf_decoder)
-before_bwt_decoder = mtf.mtf_decoder(before_mtf_decoder, init_alp)
+before_bwt_decoder = mtf.mtf_decoder(before_mtf_decoder)
 print("before_bwt_decoder :", num, before_bwt_decoder)
 # decoded = mtf_decoder(before_bwt_decoder, init_alp)
 # print("decode_from_encode", decode_from_encode)
@@ -58,7 +63,7 @@ answer_string = bwt.bwt_decoder_smart(before_bwt_decoder, num)
 print("Result :", answer_string)
 print("Result :", answer_string == input_bytes)
 print("Lengths :", len(input_bytes), len(answer_string))
-save_orig(answer_string)
+save_orig(name_for_restore, answer_string)
 print("bwt_encode_result = before_bwt_decoder", bwt_encode_result == before_bwt_decoder)
 print("mtf_encode_result = before_mtf_decoder", mtf_encode_result == before_mtf_decoder)
 print("huffman_code = before_huffman_code_decoder", huffman_code == read_data)

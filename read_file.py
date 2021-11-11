@@ -1,5 +1,5 @@
-def read(name="output"):
-    f = open("name.bin", "rb")
+def read(name):
+    f = open(name, "rb")
     all_inp = f.readlines()
     inp = all_inp[0]
     # print(all_inp)
@@ -13,6 +13,22 @@ def read(name="output"):
         ans += x
     # print("and---------------------", ans)
     # print("and---------------------", len(ans))
+    out_0_1 = int(ans[:8], 2)
+    ans = ans[8:]
+    out_0_2 = ""
+    for i in range(out_0_1):
+        ch = chr(int(ans[:8], 2))
+        out_0_2 += ch
+        ans = ans[8:]
+    print("out_0_3", ans[:8])
+    out_0_3 = int(ans[:8], 2)
+    ans = ans[8:]
+    out_0_4 = ans[:out_0_3*8]
+    print("out_0_4_1", out_0_3,out_0_4)
+    out_0_4 = int(out_0_4, 2)
+    ans = ans[out_0_3*8:]
+    print("out_0_4_2", out_0_4)
+
     out_1 = int(ans[:16], 2)
     out_2 = int(ans[16:24], 2)
     out_2_5 = int(ans[24:32], 2)
@@ -46,4 +62,4 @@ def read(name="output"):
     #     out_3 = out_3[out_2:]
 
     f.close()
-    return ans, d
+    return out_0_2, out_0_4, ans, d
